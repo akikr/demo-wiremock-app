@@ -1,0 +1,17 @@
+{
+    "args": {},
+    "data": "{\"data\": \"Test data\", \"id\": 101}\n",
+    "files": {},
+    "form": {},
+    "headers": {
+        "Accept": "application/json, */*",
+        "Content-Type": "application/json"
+    },
+    "json": {
+        "data": "Test data",
+        "id": 101
+    },
+    "method": "POST",
+    "origin": "http://localhost:8081",
+    "url": "https://httpbin.org/anything"
+}
