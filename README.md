@@ -1,6 +1,6 @@
 # A demo-wiremock-app
 
-`demo-wiremock-app` is a compact Spring Boot service that demonstrates how to test and integrate outbound HTTP calls with WireMock. Think of it as a small "API lab": your app exposes endpoints, forwards requests to a mocked upstream service, and gives you repeatable behavior for local development and testing.
+This `demo-wiremock-app` is a compact Spring Boot service that demonstrates how to test and integrate outbound HTTP calls with WireMock. Think of it as a small "API lab": your app exposes endpoints, forwards requests to a mocked upstream service, and gives you repeatable behavior for local development and testing.
 
 It is designed for engineers who want a practical starter for:
 - building REST endpoints with Spring Boot,
