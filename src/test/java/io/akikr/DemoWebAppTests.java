@@ -14,12 +14,14 @@ import org.springframework.test.context.TestPropertySource;
 @TestPropertySource(properties = {"spring.config.location=classpath:application-test.properties"})
 class DemoWebAppTests extends WireMockTestContainer {
 
+    private static final boolean isSetUpWireMockServerWithHttps =  false;
+
     @Autowired
     private ApplicationContext applicationContext;
 
     @BeforeAll
     static void setup() {
-        setUpWireMockServerWithHttps(false);
+        setUpWireMockServerWithHttps(isSetUpWireMockServerWithHttps);
     }
 
     @Test
@@ -35,6 +37,7 @@ class DemoWebAppTests extends WireMockTestContainer {
         String externalServiceUrl = System.getProperty("app.external-service.client-base-url");
         assertThat(externalServiceUrl).isNotNull();
         assertThat(externalServiceUrl).isNotBlank();
+        assertThat(externalServiceUrl).contains(isSetUpWireMockServerWithHttps ? "https" : "http");
         System.out.println("External Service URL: " + externalServiceUrl);
     }
 }
