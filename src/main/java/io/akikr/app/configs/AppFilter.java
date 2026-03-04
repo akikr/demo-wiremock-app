@@ -1,21 +1,20 @@
 package io.akikr.app.configs;
 
+import static io.akikr.app.configs.AppFilterLogger.logRequest;
+import static io.akikr.app.configs.AppFilterLogger.logResponse;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import org.jspecify.annotations.NonNull;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
-import java.io.IOException;
-
-import static io.akikr.app.configs.AppFilterLogger.logRequest;
-import static io.akikr.app.configs.AppFilterLogger.logResponse;
-
 public class AppFilter extends OncePerRequestFilter {
-    
+
     private final AppFilterProperties appFilterProperties;
 
     public AppFilter(AppFilterProperties appFilterProperties) {

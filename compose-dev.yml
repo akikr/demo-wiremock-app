@@ -33,7 +33,7 @@ services:
       - /tmp/app/dumps:/var/dumps
 
   wiremock:
-    image: wiremock/wiremock:2.32.0
+    image: 'wiremock/wiremock:2.32.0'
     container_name: wiremock
     entrypoint: [ "/docker-entrypoint.sh", "--disable-gzip", "--verbose" ]
     ports:

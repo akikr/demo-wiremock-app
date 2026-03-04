@@ -1,16 +1,15 @@
 package io.akikr.app.configs;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
-import org.springframework.web.util.ContentCachingRequestWrapper;
-import org.springframework.web.util.ContentCachingResponseWrapper;
-
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
+import org.springframework.web.util.ContentCachingRequestWrapper;
+import org.springframework.web.util.ContentCachingResponseWrapper;
 
 public interface AppFilterLogger {
 
@@ -35,8 +34,7 @@ public interface AppFilterLogger {
         log.debug("REQUEST BODY: {}", (body.isEmpty()) ? "[No-Body]" : body);
     }
 
-    static void logResponse(
-            ContentCachingResponseWrapper response, AppFilterProperties appFilterProperties) {
+    static void logResponse(ContentCachingResponseWrapper response, AppFilterProperties appFilterProperties) {
         log.debug("RESPONSE STATUS: {}", response.getStatus());
 
         var headers = "[Headers not logged]";

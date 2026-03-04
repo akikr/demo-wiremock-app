@@ -21,13 +21,16 @@ public class AppController implements AppOperations {
 
     @Override
     @GetMapping(path = "/data", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getData(){
+    public ResponseEntity<String> getData() {
         return appService.getJsonData();
     }
 
     @Override
-    @PostMapping(path = "/data", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> postData(@RequestBody JsonData data){
+    @PostMapping(
+            path = "/data",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> postData(@RequestBody JsonData data) {
         return appService.postJsonData(data);
     }
 }

@@ -17,6 +17,9 @@ public interface AppOperations {
     ResponseEntity<String> getData();
 
     @Operation(summary = "To post some JSON data")
-    @PostMapping(path = "/data", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(
+            path = "/data",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<String> postData(@RequestBody JsonData data);
 }

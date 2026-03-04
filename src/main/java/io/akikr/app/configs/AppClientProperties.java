@@ -13,6 +13,4 @@ public record AppClientProperties(
         @DefaultValue("false") boolean clientIncludeRequestBody,
         @DefaultValue("false") boolean clientIncludeResponseHeaders,
         @DefaultValue("false") boolean clientIncludeResponseBody,
-        @DefaultValue("1000") int clientMaxBodyLength
-) {
-}
+        @DefaultValue("1000") int clientMaxBodyLength) {}

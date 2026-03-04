@@ -34,8 +34,7 @@ public class AppConfig {
         simpleClientHttpRequestFactory.setConnectTimeout(appClientProperties.clientConnectTimeout());
         simpleClientHttpRequestFactory.setReadTimeout(appClientProperties.clientReadTimeout());
 
-        return builder
-                .requestFactory(simpleClientHttpRequestFactory)
+        return builder.requestFactory(simpleClientHttpRequestFactory)
                 .baseUrl(appClientProperties.clientBaseUrl())
                 .requestInterceptor(appClientLoggingInterceptor)
                 .build();

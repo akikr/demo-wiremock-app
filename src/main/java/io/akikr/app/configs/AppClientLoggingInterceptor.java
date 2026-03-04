@@ -1,5 +1,11 @@
 package io.akikr.app.configs;
 
+import static java.util.Objects.nonNull;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,13 +16,6 @@ import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-
-import static java.util.Objects.nonNull;
 
 @Component
 public class AppClientLoggingInterceptor implements ClientHttpRequestInterceptor {
@@ -43,7 +42,9 @@ public class AppClientLoggingInterceptor implements ClientHttpRequestInterceptor
     ///
     @NonNull
     @Override
-    public ClientHttpResponse intercept(@NonNull HttpRequest request, byte [] body, @NonNull ClientHttpRequestExecution execution) throws IOException {
+    public ClientHttpResponse intercept(
+            @NonNull HttpRequest request, byte[] body, @NonNull ClientHttpRequestExecution execution)
+            throws IOException {
         if (appClientProperties.clientLoggingEnabled()) logRequest(request, body);
         var response = execution.execute(request, body);
         return logResponse(response);
@@ -81,9 +82,10 @@ public class AppClientLoggingInterceptor implements ClientHttpRequestInterceptor
 
             var responseStr = "[Not Logged]";
             if (appClientProperties.clientIncludeResponseBody()) {
-                responseStr =  new String(responseBody, StandardCharsets.UTF_8);
+                responseStr = new String(responseBody, StandardCharsets.UTF_8);
                 if (responseStr.length() > appClientProperties.clientMaxBodyLength()) {
-                    responseStr = responseStr.substring(0, appClientProperties.clientMaxBodyLength()) + "...[truncated]";
+                    responseStr =
+                            responseStr.substring(0, appClientProperties.clientMaxBodyLength()) + "...[truncated]";
                 }
             }
             log.debug("Client RESPONSE Body: {}", (responseStr.isEmpty()) ? "[No-Body]" : responseStr);
