@@ -1,9 +1,11 @@
 services:
 
   wiremock:
-    image: 'wiremock/wiremock:2.32.0'
-    entrypoint: [ "/docker-entrypoint.sh", "--disable-gzip", "--verbose" ]
+    image: 'wiremock/wiremock:3.13.2'
+    environment:
+      WIREMOCK_OPTIONS: '--https-port 8443 --verbose'
     ports:
       - "8081:8080"
+      - "8443:8443"
     volumes:
       - ./src/test/resources/wiremock:/home/wiremock

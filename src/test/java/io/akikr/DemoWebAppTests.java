@@ -19,7 +19,7 @@ class DemoWebAppTests extends WireMockTestContainer {
 
     @BeforeAll
     static void setup() {
-        setUpWireMockServer();
+        setUpWireMockServerWithHttps(false);
     }
 
     @Test
