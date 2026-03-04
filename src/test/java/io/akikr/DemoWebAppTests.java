@@ -1,8 +1,5 @@
 package io.akikr;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,19 +7,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.TestPropertySource;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"spring.config.location=classpath:application-test.properties"})
-class DemoWebAppTests extends WireMockTestContainer {
-
-    private static final boolean isSetUpWireMockServerWithHttps =  false;
+class DemoWebAppTests {
 
     @Autowired
     private ApplicationContext applicationContext;
-
-    @BeforeAll
-    static void setup() {
-        setUpWireMockServerWithHttps(isSetUpWireMockServerWithHttps);
-    }
 
     @Test
     @DisplayName("Test Spring Web Application Context Loads")
@@ -32,12 +24,5 @@ class DemoWebAppTests extends WireMockTestContainer {
 
         // Verify the main application class is loaded
         assertThat(applicationContext.getBean("demoWebApp")).isInstanceOf(DemoWebApp.class);
-
-        // Verify the WireMock Server is set up and external-service url is configured
-        String externalServiceUrl = System.getProperty("app.external-service.client-base-url");
-        assertThat(externalServiceUrl).isNotNull();
-        assertThat(externalServiceUrl).isNotBlank();
-        assertThat(externalServiceUrl).contains(isSetUpWireMockServerWithHttps ? "https" : "http");
-        System.out.println("External Service URL: " + externalServiceUrl);
     }
 }

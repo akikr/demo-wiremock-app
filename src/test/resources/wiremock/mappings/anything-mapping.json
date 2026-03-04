@@ -12,10 +12,10 @@
     "status": 200,
     "headers": {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      "Connection": "keep-alive"
+      "Access-Control-Allow-Origin": "*"
     },
-    "bodyFileName": "anything-response.json"
+    "bodyFileName": "anything-response.json",
+    "fixedDelayMilliseconds": 100
   }
 }
 
