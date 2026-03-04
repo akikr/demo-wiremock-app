@@ -51,13 +51,17 @@ sdk env
 Use Maven Wrapper to compile and package:
 
 ```bash
+sdk env
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
 ./mvnw clean package
 ```
 
 ### 2. Run Unit/Context Tests
 
 ```bash
-./mvnw test
+sdk env
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+./mvnw clean test
 ```
 
 Current tests verify that the Spring application context loads successfully.
@@ -69,6 +73,8 @@ Current tests verify that the Spring application context loads successfully.
 Because `spring.docker.compose.enabled=true` is set in `application.properties`, Spring Boot can manage `compose.yml` lifecycle when the app starts.
 
 ```bash
+sdk env
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
 ./mvnw spring-boot:run
 ```
 
@@ -83,15 +89,16 @@ http://localhost:8080/app
 The `dev` profile enables Swagger UI and richer logging settings.
 
 ```bash
+sdk env
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
 Useful links in `dev` profile:
 
-```text
 Swagger UI: http://localhost:8080/app/swagger-ui.html
+
 Actuator:   http://localhost:8080/app/actuator
-```
 
 ### Option C: Run Fully Containerized
 
