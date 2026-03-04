@@ -157,7 +157,7 @@ Key default settings from `application.properties`:
 
 - Server port: `8080`
 - Context path: `/app`
-- External mock base URL: `http://localhost:8081/api`
+- WireMock base URL: [HTTP] `http://localhost:8081/api` and for [HTTPS] `https://localhost:8443/api`
 - OpenAPI disabled by default, enabled in `dev`
 
 In practice, this separation keeps production-like defaults clean while making local debugging easier in the `dev` profile.
