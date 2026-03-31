@@ -1,11 +1,13 @@
 package io.akikr;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.wait.strategy.WaitAllStrategy;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
+import org.testcontainers.containers.wait.strategy.Wait;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /// Mock server simulator for external service testing.
 ///
@@ -108,7 +110,8 @@ public class WireMockAppSever {
     ///- Creates a GenericContainer for WireMock version 3.13.2
     ///- Configures HTTP (port 8080) and HTTPS (port 8443) ports based on the parameter
     ///- Maps WireMock configuration from classpath resources (`src/test/resources/wiremock`)
-    ///- Starts the container and waits for it to be ready
+    ///- Starts the container and waits for it to be ready using health checks
+    ///- Enables logging output to SLF4J for container diagnostics
     ///
     ///
     /// **Container Configuration:**
@@ -116,24 +119,27 @@ public class WireMockAppSever {
     ///- Exposed Ports: `8080 (HTTP)` and `8443 (HTTPS)`
     ///- Volume Mapping: `wiremock/` → `/home/wiremock` (READ_ONLY)
     ///- Verbose Logging: Enabled for debugging
+    ///- Output Logging: Streamed to SLF4J logger for real-time monitoring
     ///
     /// ---
     ///
     /// @param isHttpsEnabled `true` to return HTTPS URL (port 8443),
     ///                       `false` to return HTTP URL (port 8080)
     ///
-    /// @return the base URL of the mock server in format `http(s)://host:port`, or `null` if the server fails to
+    /// @return the base URL of the mock server in format `http(s)://host:port`, or `null` if the server fails to start
     ///
     /// @throws Exception if the container fails to start
+
     private static String setUpWireMockServerWithHttps(boolean isHttpsEnabled) throws Exception {
         var wireMockServer = new GenericContainer<>("wiremock/wiremock:3.13.2")
                 .withEnv("WIREMOCK_OPTIONS", "--https-port 8443 --verbose")
                 .withExposedPorts(8080, 8443)
                 .withClasspathResourceMapping("wiremock", "/home/wiremock", BindMode.READ_ONLY)
-                .waitingFor(new WaitAllStrategy());
+                .waitingFor(Wait.forHealthcheck());
         wireMockServer.start();
 
         if (wireMockServer.isRunning()) {
+            wireMockServer.followOutput(new Slf4jLogConsumer(LoggerFactory.getLogger(WireMockAppSever.class)));
             return (isHttpsEnabled)
                     ? "https://" + wireMockServer.getHost() + ":" + wireMockServer.getMappedPort(8443)
                     : "http://" + wireMockServer.getHost() + ":" + wireMockServer.getMappedPort(8080);
