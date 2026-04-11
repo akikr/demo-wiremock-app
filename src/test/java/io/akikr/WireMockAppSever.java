@@ -1,13 +1,13 @@
 package io.akikr;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /// Mock server simulator for external service testing.
 ///
@@ -126,7 +126,8 @@ public class WireMockAppSever {
     /// @param isHttpsEnabled `true` to return HTTPS URL (port 8443),
     ///                       `false` to return HTTP URL (port 8080)
     ///
-    /// @return the base URL of the mock server in format `http(s)://host:port`, or `null` if the server fails to start
+    /// @return the base URL of the mock server in format `http(s)://host:port`, or `null` if the server fails to
+    /// start
     ///
     /// @throws Exception if the container fails to start
 
